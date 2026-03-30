@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'core/network/binance_socket_service.dart';
+import 'core/utils/market_symbols.dart';
+
 void main() {
+  final socket = BinanceSocketService();
+
+  socket.connect(symbols: defaultSymbols).listen((event) {
+    print(event);
+  });
+
   runApp(const MyApp());
 }
 
