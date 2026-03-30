@@ -1,3 +1,4 @@
+import 'package:cryptopulse/features/market/data/repositories/market_repository_impl.dart';
 import 'package:flutter/material.dart';
 
 import 'core/network/binance_socket_service.dart';
@@ -5,9 +6,10 @@ import 'core/utils/market_symbols.dart';
 
 void main() {
   final socket = BinanceSocketService();
+  final repo = MarketRepositoryImpl(socket);
 
-  socket.connect(symbols: defaultSymbols).listen((event) {
-    print(event);
+  repo.subscribeTickers(defaultSymbols).listen((ticker) {
+    print("${ticker.symbol} -> ${ticker.price}");
   });
 
   runApp(const MyApp());
