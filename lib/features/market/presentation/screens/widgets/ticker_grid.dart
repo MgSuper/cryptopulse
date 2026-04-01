@@ -9,6 +9,14 @@ class TickerGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (tickers.isEmpty) {
+      return const Center(
+        child: Text(
+          "Waiting for market data...",
+          style: TextStyle(color: Colors.white70),
+        ),
+      );
+    }
     final items = tickers.values.toList();
 
     return GridView.builder(

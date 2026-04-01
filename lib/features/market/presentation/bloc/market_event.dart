@@ -19,11 +19,16 @@ class SubscribeMarket extends MarketEvent {
 class TickerUpdated extends MarketEvent {
   final String symbol;
   final double price;
+  final double changePercent;
 
-  const TickerUpdated({required this.symbol, required this.price});
+  const TickerUpdated({
+    required this.symbol,
+    required this.price,
+    required this.changePercent,
+  });
 
   @override
-  List<Object?> get props => [symbol, price];
+  List<Object?> get props => [symbol, price, changePercent];
 }
 
 class MarketDisconnected extends MarketEvent {}

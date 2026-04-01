@@ -58,7 +58,7 @@ class BinanceSocketService implements ExchangeSocket {
   void _establishConnection(List<String> symbols) async {
     if (symbols.isEmpty) return;
 
-    final endpoint = symbols.map((s) => '${s.toLowerCase()}@trade').join('/');
+    final endpoint = symbols.map((s) => '${s.toLowerCase()}@ticker').join('/');
     final uri = Uri.parse(
       'wss://stream.binance.com:9443/stream?streams=$endpoint',
     );

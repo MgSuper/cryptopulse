@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Ticker {
 
- String get symbol; double get price; DateTime get timestamp;
+ String get symbol; double get price; double get changePercent; DateTime get timestamp;
 /// Create a copy of Ticker
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TickerCopyWith<Ticker> get copyWith => _$TickerCopyWithImpl<Ticker>(this as Tic
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Ticker&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.price, price) || other.price == price)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Ticker&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.price, price) || other.price == price)&&(identical(other.changePercent, changePercent) || other.changePercent == changePercent)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,symbol,price,timestamp);
+int get hashCode => Object.hash(runtimeType,symbol,price,changePercent,timestamp);
 
 @override
 String toString() {
-  return 'Ticker(symbol: $symbol, price: $price, timestamp: $timestamp)';
+  return 'Ticker(symbol: $symbol, price: $price, changePercent: $changePercent, timestamp: $timestamp)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TickerCopyWith<$Res>  {
   factory $TickerCopyWith(Ticker value, $Res Function(Ticker) _then) = _$TickerCopyWithImpl;
 @useResult
 $Res call({
- String symbol, double price, DateTime timestamp
+ String symbol, double price, double changePercent, DateTime timestamp
 });
 
 
@@ -65,10 +65,11 @@ class _$TickerCopyWithImpl<$Res>
 
 /// Create a copy of Ticker
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? symbol = null,Object? price = null,Object? timestamp = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? symbol = null,Object? price = null,Object? changePercent = null,Object? timestamp = null,}) {
   return _then(_self.copyWith(
 symbol: null == symbol ? _self.symbol : symbol // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
+as double,changePercent: null == changePercent ? _self.changePercent : changePercent // ignore: cast_nullable_to_non_nullable
 as double,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
@@ -152,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String symbol,  double price,  DateTime timestamp)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String symbol,  double price,  double changePercent,  DateTime timestamp)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Ticker() when $default != null:
-return $default(_that.symbol,_that.price,_that.timestamp);case _:
+return $default(_that.symbol,_that.price,_that.changePercent,_that.timestamp);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return $default(_that.symbol,_that.price,_that.timestamp);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String symbol,  double price,  DateTime timestamp)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String symbol,  double price,  double changePercent,  DateTime timestamp)  $default,) {final _that = this;
 switch (_that) {
 case _Ticker():
-return $default(_that.symbol,_that.price,_that.timestamp);}
+return $default(_that.symbol,_that.price,_that.changePercent,_that.timestamp);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -190,10 +191,10 @@ return $default(_that.symbol,_that.price,_that.timestamp);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String symbol,  double price,  DateTime timestamp)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String symbol,  double price,  double changePercent,  DateTime timestamp)?  $default,) {final _that = this;
 switch (_that) {
 case _Ticker() when $default != null:
-return $default(_that.symbol,_that.price,_that.timestamp);case _:
+return $default(_that.symbol,_that.price,_that.changePercent,_that.timestamp);case _:
   return null;
 
 }
@@ -205,11 +206,12 @@ return $default(_that.symbol,_that.price,_that.timestamp);case _:
 @JsonSerializable()
 
 class _Ticker implements Ticker {
-  const _Ticker({required this.symbol, required this.price, required this.timestamp});
+  const _Ticker({required this.symbol, required this.price, required this.changePercent, required this.timestamp});
   factory _Ticker.fromJson(Map<String, dynamic> json) => _$TickerFromJson(json);
 
 @override final  String symbol;
 @override final  double price;
+@override final  double changePercent;
 @override final  DateTime timestamp;
 
 /// Create a copy of Ticker
@@ -225,16 +227,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Ticker&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.price, price) || other.price == price)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Ticker&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.price, price) || other.price == price)&&(identical(other.changePercent, changePercent) || other.changePercent == changePercent)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,symbol,price,timestamp);
+int get hashCode => Object.hash(runtimeType,symbol,price,changePercent,timestamp);
 
 @override
 String toString() {
-  return 'Ticker(symbol: $symbol, price: $price, timestamp: $timestamp)';
+  return 'Ticker(symbol: $symbol, price: $price, changePercent: $changePercent, timestamp: $timestamp)';
 }
 
 
@@ -245,7 +247,7 @@ abstract mixin class _$TickerCopyWith<$Res> implements $TickerCopyWith<$Res> {
   factory _$TickerCopyWith(_Ticker value, $Res Function(_Ticker) _then) = __$TickerCopyWithImpl;
 @override @useResult
 $Res call({
- String symbol, double price, DateTime timestamp
+ String symbol, double price, double changePercent, DateTime timestamp
 });
 
 
@@ -262,10 +264,11 @@ class __$TickerCopyWithImpl<$Res>
 
 /// Create a copy of Ticker
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? symbol = null,Object? price = null,Object? timestamp = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? symbol = null,Object? price = null,Object? changePercent = null,Object? timestamp = null,}) {
   return _then(_Ticker(
 symbol: null == symbol ? _self.symbol : symbol // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
+as double,changePercent: null == changePercent ? _self.changePercent : changePercent // ignore: cast_nullable_to_non_nullable
 as double,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));

@@ -2,7 +2,9 @@ import 'package:cryptopulse/core/utils/market_symbols.dart';
 import 'package:cryptopulse/features/market/presentation/bloc/market_bloc.dart';
 import 'package:cryptopulse/features/market/presentation/bloc/market_event.dart';
 import 'package:cryptopulse/features/market/presentation/bloc/market_state.dart';
-import 'package:cryptopulse/features/market/presentation/screens/widgets/ticker_grid.dart';
+import 'package:cryptopulse/features/market/presentation/screens/widgets/market_header.dart';
+import 'package:cryptopulse/features/market/presentation/screens/widgets/market_list.dart';
+import 'package:cryptopulse/features/market/presentation/screens/widgets/market_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,15 +26,21 @@ class _MarketScreenState extends State<MarketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
-      appBar: AppBar(
-        title: const Text("CryptoPulse"),
-        backgroundColor: const Color(0xFF161B22),
-      ),
-      body: BlocBuilder<MarketBloc, MarketState>(
-        builder: (context, state) {
-          return TickerGrid(tickers: state.tickers);
-        },
+      backgroundColor: const Color(0xFF0B0F14),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const MarketHeader(),
+            const MarketTabs(),
+            Expanded(
+              child: BlocBuilder<MarketBloc, MarketState>(
+                builder: (context, state) {
+                  return MarketList(tickers: state.tickers.values.toList());
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

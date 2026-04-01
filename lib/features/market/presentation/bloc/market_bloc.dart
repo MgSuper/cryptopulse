@@ -21,7 +21,13 @@ class MarketBloc extends Bloc<MarketEvent, MarketState> {
     _subscription?.cancel();
 
     _subscription = repository.subscribeTickers(event.symbols).listen((ticker) {
-      add(TickerUpdated(symbol: ticker.symbol, price: ticker.price));
+      add(
+        TickerUpdated(
+          symbol: ticker.symbol,
+          price: ticker.price,
+          changePercent: ticker.changePercent,
+        ),
+      );
     });
 
     emit(state.copyWith(connected: true));
@@ -36,12 +42,14 @@ class MarketBloc extends Bloc<MarketEvent, MarketState> {
       updated[event.symbol] = Ticker(
         symbol: event.symbol,
         price: event.price,
+        changePercent: event.changePercent,
         timestamp: DateTime.now(),
       );
     } else {
       updated[event.symbol] = existing.copyWith(
         price: event.price,
         timestamp: DateTime.now(),
+        changePercent: event.changePercent,
       );
     }
 
