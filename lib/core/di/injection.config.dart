@@ -14,6 +14,12 @@ import 'package:cryptopulse/core/network/binance_socket_service.dart' as _i752;
 import 'package:cryptopulse/core/network/exchange_socket.dart' as _i720;
 import 'package:cryptopulse/features/chart/data/datasources/binance_chart_api.dart'
     as _i228;
+import 'package:cryptopulse/features/chart/data/repositories/chart_repository_impl.dart'
+    as _i345;
+import 'package:cryptopulse/features/chart/domain/repositories/chart_repository.dart'
+    as _i525;
+import 'package:cryptopulse/features/chart/presentation/bloc/chart_bloc.dart'
+    as _i609;
 import 'package:cryptopulse/features/market/data/repositories/market_repository_impl.dart'
     as _i966;
 import 'package:cryptopulse/features/market/domain/repositories/market_repository.dart'
@@ -37,8 +43,14 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i228.BinanceChartApi(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i720.ExchangeSocket>(() => _i752.BinanceSocketService());
+    gh.lazySingleton<_i525.ChartRepository>(
+      () => _i345.ChartRepositoryImpl(gh<_i228.BinanceChartApi>()),
+    );
     gh.lazySingleton<_i245.MarketRepository>(
       () => _i966.MarketRepositoryImpl(gh<_i720.ExchangeSocket>()),
+    );
+    gh.factory<_i609.ChartBloc>(
+      () => _i609.ChartBloc(gh<_i525.ChartRepository>()),
     );
     gh.factory<_i628.MarketBloc>(
       () => _i628.MarketBloc(gh<_i245.MarketRepository>()),

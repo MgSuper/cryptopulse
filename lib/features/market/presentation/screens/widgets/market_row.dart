@@ -1,6 +1,7 @@
 import 'package:crypto_icons/crypto_icons.dart';
 import 'package:cryptopulse/core/helpers/market_ui_helper.dart';
 import 'package:cryptopulse/core/utils/extensions/string_extensions.dart';
+import 'package:cryptopulse/features/chart/presentation/screens/coin_detail_screen.dart';
 import 'package:cryptopulse/features/market/domain/entities/ticker.dart';
 import 'package:cryptopulse/features/market/presentation/screens/widgets/sparkline_chart.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,12 @@ class MarketRow extends StatelessWidget {
     return InkWell(
       onTap: () {
         // TODO: Navigate to detail page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => CoinDetailScreen(symbol: ticker.symbol),
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
