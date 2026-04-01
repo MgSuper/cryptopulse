@@ -5,7 +5,9 @@ import 'package:cryptopulse/features/market/domain/repositories/market_repositor
 import 'package:cryptopulse/features/market/presentation/bloc/market_event.dart';
 import 'package:cryptopulse/features/market/presentation/bloc/market_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class MarketBloc extends Bloc<MarketEvent, MarketState> {
   final MarketRepository repository;
 

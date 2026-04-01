@@ -3,7 +3,9 @@ import 'dart:isolate';
 import 'package:cryptopulse/core/network/exchange_socket.dart';
 import 'package:cryptopulse/features/market/domain/entities/ticker.dart';
 import 'package:cryptopulse/features/market/domain/repositories/market_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: MarketRepository)
 class MarketRepositoryImpl implements MarketRepository {
   final ExchangeSocket socket;
 

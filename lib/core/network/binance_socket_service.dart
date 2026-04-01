@@ -27,9 +27,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:cryptopulse/core/network/exchange_socket.dart';
 
+@LazySingleton(as: ExchangeSocket)
 class BinanceSocketService implements ExchangeSocket {
   WebSocketChannel? _channel;
   StreamController<Map<String, dynamic>>? _streamController;
