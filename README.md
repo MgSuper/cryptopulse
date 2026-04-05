@@ -1,6 +1,6 @@
 # CryptoPulse 📈
 
-![CI](https://github.com/MgSuper/cryptopulse/actions/workflows/flutter_web_ci.yml/badge.svg)
+![CI](https://github.com/MgSuper/cryptopulse/actions/workflows/flutter_ci.yml/badge.svg)
 
 A **real-time cryptocurrency market dashboard** built with **Flutter**,
 designed to demonstrate **high-frequency data streaming, clean
