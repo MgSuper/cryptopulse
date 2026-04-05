@@ -12,7 +12,7 @@ class TickerGrid extends StatelessWidget {
     if (tickers.isEmpty) {
       return const Center(
         child: Text(
-          "Waiting for market data...",
+          'Waiting for market data...',
           style: TextStyle(color: Colors.white70),
         ),
       );

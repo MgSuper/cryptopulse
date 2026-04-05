@@ -25,7 +25,7 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
 
     final candles = await repository.getCandles(
       symbol: event.symbol,
-      interval: "1m",
+      interval: '1m',
     );
 
     emit(state.copyWith(loading: false, candles: candles));
@@ -33,7 +33,6 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     _subscription = _socket
         .connectKline(symbol: event.symbol, interval: '1m')
         .listen((data) {
-          print('data : $data');
           add(KlineUpdate(data));
         });
   }

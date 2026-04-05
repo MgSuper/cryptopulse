@@ -11,24 +11,24 @@ class MarketTableHeader extends StatelessWidget {
         children: const [
           Expanded(
             flex: 3,
-            child: Text("Icon", style: TextStyle(color: Colors.grey)),
+            child: Text('Icon', style: TextStyle(color: Colors.grey)),
           ),
           Expanded(
             flex: 4,
-            child: Text("Name", style: TextStyle(color: Colors.grey)),
+            child: Text('Name', style: TextStyle(color: Colors.grey)),
           ),
           Expanded(
             flex: 3,
-            child: Text("Last Price", style: TextStyle(color: Colors.grey)),
+            child: Text('Last Price', style: TextStyle(color: Colors.grey)),
           ),
           Expanded(
             flex: 3,
-            child: Text("24h %", style: TextStyle(color: Colors.grey)),
+            child: Text('24h %', style: TextStyle(color: Colors.grey)),
           ),
           SizedBox(width: 8),
           Expanded(
             flex: 2,
-            child: Text("Chart", style: TextStyle(color: Colors.grey)),
+            child: Text('Chart', style: TextStyle(color: Colors.grey)),
           ),
         ],
       ),

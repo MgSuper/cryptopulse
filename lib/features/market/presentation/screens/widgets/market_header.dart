@@ -10,7 +10,7 @@ class MarketHeader extends StatelessWidget {
       child: Row(
         children: const [
           Text(
-            "CryptoPulse",
+            'CryptoPulse',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

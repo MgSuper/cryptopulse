@@ -21,7 +21,6 @@ class CryptoFont {
 extension SymbolToIcon on String {
   IconData get toCryptoIcon {
     final clean = toLowerCase().replaceAll('usdt', '').trim();
-    print('Clean: $clean');
     switch (clean) {
       case 'btc':
         return CryptoFont.btc;

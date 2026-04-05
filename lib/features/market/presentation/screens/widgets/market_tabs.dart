@@ -15,14 +15,14 @@ class MarketTabs extends StatelessWidget {
             children: [
               _tab(
                 context,
-                "All",
+                'All',
                 tab == MarketTab.all,
                 () => context.read<MarketTabCubit>().showAll(),
               ),
               const SizedBox(width: 16),
               _tab(
                 context,
-                "Watchlist",
+                'Watchlist',
                 tab == MarketTab.watchlist,
                 () => context.read<MarketTabCubit>().showWatchlist(),
               ),

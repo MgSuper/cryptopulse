@@ -15,8 +15,6 @@ class ChartRepositoryImpl implements ChartRepository {
     required String interval,
   }) async {
     final data = await api.getKlines(symbol: symbol, interval: interval);
-    print('chart data: $data');
-
     return data.map<Candle>((k) {
       return Candle(
         time: DateTime.fromMillisecondsSinceEpoch(k[0]),

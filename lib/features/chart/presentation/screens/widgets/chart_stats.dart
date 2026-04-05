@@ -21,11 +21,11 @@ class ChartStats extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _item("Open", candle.open.toStringAsFixed(2)),
-        _item("High", candle.high.toStringAsFixed(2)),
-        _item("Low", candle.low.toStringAsFixed(2)),
-        _item("Close", candle.close.toStringAsFixed(2)),
-        _item("Volume", candle.volume.toStringAsFixed(2)),
+        _item('Open', candle.open.toStringAsFixed(2)),
+        _item('High', candle.high.toStringAsFixed(2)),
+        _item('Low', candle.low.toStringAsFixed(2)),
+        _item('Close', candle.close.toStringAsFixed(2)),
+        _item('Volume', candle.volume.toStringAsFixed(2)),
       ],
     );
   }

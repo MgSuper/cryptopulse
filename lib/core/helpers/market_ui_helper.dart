@@ -14,7 +14,7 @@ class CryptoUiHelper {
   };
 
   static Color getCoinColor(String symbol) {
-    // Clean "BTCUSDT" -> "BTC"
+    // Clean 'BTCUSDT' -> 'BTC'
     final base = symbol.toUpperCase().replaceAll('USDT', '').trim();
     return _coinColors[base] ?? Colors.grey.shade400; // Fallback for new coins
   }

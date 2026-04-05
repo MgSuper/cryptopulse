@@ -1,7 +1,6 @@
 import 'package:cryptopulse/core/di/injection.dart';
 import 'package:cryptopulse/features/market/presentation/screens/market_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'features/market/presentation/bloc/market_bloc.dart';
@@ -11,7 +10,6 @@ Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox<String>('watchlist');
   await configureDependencies();
-  // debugRepaintRainbowEnabled = true;
   runApp(MyApp());
 }
 

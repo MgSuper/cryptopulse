@@ -9,11 +9,11 @@ class BinanceChartApi {
 
   Future<List<dynamic>> getKlines({
     required String symbol,
-    String interval = "1m",
+    String interval = '1m',
   }) async {
     final response = await dio.get(
-      "/api/v3/klines",
-      queryParameters: {"symbol": symbol, "interval": interval, "limit": 50},
+      '/api/v3/klines',
+      queryParameters: {'symbol': symbol, 'interval': interval, 'limit': 50},
     );
 
     return response.data;

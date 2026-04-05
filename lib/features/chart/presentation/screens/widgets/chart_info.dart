@@ -21,7 +21,7 @@ class ChartInfo extends StatelessWidget {
 
     if (candles.isEmpty) {
       return const Center(
-        child: Text("No chart data", style: TextStyle(color: Colors.white)),
+        child: Text('No chart data', style: TextStyle(color: Colors.white)),
       );
     }
 
