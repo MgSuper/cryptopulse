@@ -1,29 +1,3 @@
-// import 'dart:convert';
-
-// import 'package:cryptopulse/core/network/exchange_socket.dart';
-// import 'package:web_socket_channel/web_socket_channel.dart';
-
-// class BinanceSocketService implements ExchangeSocket {
-//   WebSocketChannel? _channel;
-//   @override
-//   Stream<Map<String, dynamic>> connect({required List<String> symbols}) {
-//     final streams = symbols.map((s) => '${s.toLowerCase()}@trade').join('/');
-//     final uri = Uri.parse(
-//       'wss://stream.binance.com:9443/stream?streams=$streams',
-//     );
-//     _channel = WebSocketChannel.connect(uri);
-//     return _channel!.stream.map((event) {
-//       final decoded = jsonDecode(event);
-//       return decoded['data'] as Map<String, dynamic>;
-//     });
-//   }
-
-//   @override
-//   void disconnect() {
-//     _channel?.sink.close();
-//   }
-// }
-
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
@@ -31,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:cryptopulse/core/network/exchange_socket.dart';
 
-@LazySingleton(as: ExchangeSocket)
+@Injectable(as: ExchangeSocket)
 class BinanceSocketService implements ExchangeSocket {
   WebSocketChannel? _channel;
   StreamController<Map<String, dynamic>>? _streamController;
@@ -39,87 +13,103 @@ class BinanceSocketService implements ExchangeSocket {
   static const String _baseUrl =
       'wss://stream.binance.com:9443/stream?streams=';
 
-  // Implementation of the new getter from the interface
   @override
   bool get isConnected =>
       _channel != null &&
       _streamController != null &&
       !_streamController!.isClosed;
 
+  /// ===============================
+  /// TICKER STREAM (Dashboard)
+  /// ===============================
   @override
   Stream<Map<String, dynamic>> connect({required List<String> symbols}) {
-    // Clean up before starting a new one
     _cleanup();
 
     _streamController = StreamController<Map<String, dynamic>>.broadcast();
-    _establishConnection(symbols);
+
+    final streams = symbols.map((s) => '${s.toLowerCase()}@ticker').join('/');
+    final uri = Uri.parse('$_baseUrl$streams');
+
+    _establishConnection(uri);
 
     return _streamController!.stream;
   }
 
-  void _establishConnection(List<String> symbols) async {
-    if (symbols.isEmpty) return;
+  /// ===============================
+  /// KLINE STREAM (Chart)
+  /// ===============================
+  @override
+  Stream<Map<String, dynamic>> connectKline({
+    required String symbol,
+    String interval = "1m",
+  }) {
+    _cleanup();
 
-    final endpoint = symbols.map((s) => '${s.toLowerCase()}@ticker').join('/');
-    final uri = Uri.parse(
-      'wss://stream.binance.com:9443/stream?streams=$endpoint',
-    );
+    _streamController = StreamController<Map<String, dynamic>>.broadcast();
 
+    final stream = '${symbol.toLowerCase()}@kline_$interval';
+    final uri = Uri.parse('$_baseUrl$stream');
+
+    _establishConnection(uri);
+
+    return _streamController!.stream;
+  }
+
+  /// ===============================
+  /// CONNECTION HANDLER
+  /// ===============================
+  void _establishConnection(Uri uri) async {
     try {
-      // 1. Expert Detail: Create the channel
       _channel = WebSocketChannel.connect(uri);
 
-      // 2. IMPORTANT FOR WEB: Wait for the handshake to finish
       await _channel!.ready;
-      debugPrint('Binance Socket Connected Successfully');
+      debugPrint('Binance Socket Connected');
 
-      // 3. Expert Detail: Direct Listen
       _channel!.stream.listen(
         (event) {
-          // On Web, we MUST handle the data immediately
           try {
             final decoded = jsonDecode(event.toString());
+
             final data = decoded['data'] as Map<String, dynamic>;
 
             if (_streamController != null && !_streamController!.isClosed) {
               _streamController!.add(data);
             }
           } catch (e) {
-            debugPrint('Data Parsing Error: $e');
+            debugPrint('Socket Parsing Error: $e');
           }
         },
         onError: (error) {
-          debugPrint('Binance Socket Error: $error');
-          _reconnect(symbols);
+          debugPrint('Socket Error: $error');
+          _reconnect(uri);
         },
         onDone: () {
-          // If this hits immediately after 'Connected',
-          // check your browser's console for 'CORS' or 'Blocked' messages.
-          debugPrint('Server closed the stream (onDone)');
-          _reconnect(symbols);
+          debugPrint('Socket closed by server');
+          _reconnect(uri);
         },
         cancelOnError: true,
       );
     } catch (e) {
-      debugPrint('Handshake Failed: $e');
-      _reconnect(symbols);
+      debugPrint('Socket handshake failed: $e');
+      _reconnect(uri);
     }
   }
 
-  void _reconnect(List<String> symbols) {
-    // Prevent multiple parallel reconnection attempts
+  /// ===============================
+  /// AUTO RECONNECT
+  /// ===============================
+  void _reconnect(Uri uri) {
     Future.delayed(const Duration(seconds: 5), () {
       if (_streamController != null && !_streamController!.isClosed) {
-        _establishConnection(symbols);
+        _establishConnection(uri);
       }
     });
   }
 
-  static Map<String, dynamic> _parseJson(String source) {
-    return jsonDecode(source) as Map<String, dynamic>;
-  }
-
-  // Internal helper to dry up the code
+  /// ===============================
+  /// CLEANUP
+  /// ===============================
   void _cleanup() {
     _channel?.sink.close();
     _channel = null;
@@ -130,6 +120,6 @@ class BinanceSocketService implements ExchangeSocket {
     _cleanup();
     await _streamController?.close();
     _streamController = null;
-    debugPrint('Binance Socket Service Disconnected Cleanly');
+    debugPrint('Binance Socket Disconnected');
   }
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Candle {
 
- double get open; double get high; double get low; double get close; DateTime get time;
+ double get open; double get high; double get low; double get close; DateTime get time; double get volume;
 /// Create a copy of Candle
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CandleCopyWith<Candle> get copyWith => _$CandleCopyWithImpl<Candle>(this as Can
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Candle&&(identical(other.open, open) || other.open == open)&&(identical(other.high, high) || other.high == high)&&(identical(other.low, low) || other.low == low)&&(identical(other.close, close) || other.close == close)&&(identical(other.time, time) || other.time == time));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Candle&&(identical(other.open, open) || other.open == open)&&(identical(other.high, high) || other.high == high)&&(identical(other.low, low) || other.low == low)&&(identical(other.close, close) || other.close == close)&&(identical(other.time, time) || other.time == time)&&(identical(other.volume, volume) || other.volume == volume));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,open,high,low,close,time);
+int get hashCode => Object.hash(runtimeType,open,high,low,close,time,volume);
 
 @override
 String toString() {
-  return 'Candle(open: $open, high: $high, low: $low, close: $close, time: $time)';
+  return 'Candle(open: $open, high: $high, low: $low, close: $close, time: $time, volume: $volume)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $CandleCopyWith<$Res>  {
   factory $CandleCopyWith(Candle value, $Res Function(Candle) _then) = _$CandleCopyWithImpl;
 @useResult
 $Res call({
- double open, double high, double low, double close, DateTime time
+ double open, double high, double low, double close, DateTime time, double volume
 });
 
 
@@ -65,14 +65,15 @@ class _$CandleCopyWithImpl<$Res>
 
 /// Create a copy of Candle
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? open = null,Object? high = null,Object? low = null,Object? close = null,Object? time = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? open = null,Object? high = null,Object? low = null,Object? close = null,Object? time = null,Object? volume = null,}) {
   return _then(_self.copyWith(
 open: null == open ? _self.open : open // ignore: cast_nullable_to_non_nullable
 as double,high: null == high ? _self.high : high // ignore: cast_nullable_to_non_nullable
 as double,low: null == low ? _self.low : low // ignore: cast_nullable_to_non_nullable
 as double,close: null == close ? _self.close : close // ignore: cast_nullable_to_non_nullable
 as double,time: null == time ? _self.time : time // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,volume: null == volume ? _self.volume : volume // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 
@@ -154,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double open,  double high,  double low,  double close,  DateTime time)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double open,  double high,  double low,  double close,  DateTime time,  double volume)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Candle() when $default != null:
-return $default(_that.open,_that.high,_that.low,_that.close,_that.time);case _:
+return $default(_that.open,_that.high,_that.low,_that.close,_that.time,_that.volume);case _:
   return orElse();
 
 }
@@ -175,10 +176,10 @@ return $default(_that.open,_that.high,_that.low,_that.close,_that.time);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double open,  double high,  double low,  double close,  DateTime time)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double open,  double high,  double low,  double close,  DateTime time,  double volume)  $default,) {final _that = this;
 switch (_that) {
 case _Candle():
-return $default(_that.open,_that.high,_that.low,_that.close,_that.time);}
+return $default(_that.open,_that.high,_that.low,_that.close,_that.time,_that.volume);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -192,10 +193,10 @@ return $default(_that.open,_that.high,_that.low,_that.close,_that.time);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double open,  double high,  double low,  double close,  DateTime time)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double open,  double high,  double low,  double close,  DateTime time,  double volume)?  $default,) {final _that = this;
 switch (_that) {
 case _Candle() when $default != null:
-return $default(_that.open,_that.high,_that.low,_that.close,_that.time);case _:
+return $default(_that.open,_that.high,_that.low,_that.close,_that.time,_that.volume);case _:
   return null;
 
 }
@@ -207,7 +208,7 @@ return $default(_that.open,_that.high,_that.low,_that.close,_that.time);case _:
 @JsonSerializable()
 
 class _Candle implements Candle {
-  const _Candle({required this.open, required this.high, required this.low, required this.close, required this.time});
+  const _Candle({required this.open, required this.high, required this.low, required this.close, required this.time, required this.volume});
   factory _Candle.fromJson(Map<String, dynamic> json) => _$CandleFromJson(json);
 
 @override final  double open;
@@ -215,6 +216,7 @@ class _Candle implements Candle {
 @override final  double low;
 @override final  double close;
 @override final  DateTime time;
+@override final  double volume;
 
 /// Create a copy of Candle
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +231,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Candle&&(identical(other.open, open) || other.open == open)&&(identical(other.high, high) || other.high == high)&&(identical(other.low, low) || other.low == low)&&(identical(other.close, close) || other.close == close)&&(identical(other.time, time) || other.time == time));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Candle&&(identical(other.open, open) || other.open == open)&&(identical(other.high, high) || other.high == high)&&(identical(other.low, low) || other.low == low)&&(identical(other.close, close) || other.close == close)&&(identical(other.time, time) || other.time == time)&&(identical(other.volume, volume) || other.volume == volume));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,open,high,low,close,time);
+int get hashCode => Object.hash(runtimeType,open,high,low,close,time,volume);
 
 @override
 String toString() {
-  return 'Candle(open: $open, high: $high, low: $low, close: $close, time: $time)';
+  return 'Candle(open: $open, high: $high, low: $low, close: $close, time: $time, volume: $volume)';
 }
 
 
@@ -249,7 +251,7 @@ abstract mixin class _$CandleCopyWith<$Res> implements $CandleCopyWith<$Res> {
   factory _$CandleCopyWith(_Candle value, $Res Function(_Candle) _then) = __$CandleCopyWithImpl;
 @override @useResult
 $Res call({
- double open, double high, double low, double close, DateTime time
+ double open, double high, double low, double close, DateTime time, double volume
 });
 
 
@@ -266,14 +268,15 @@ class __$CandleCopyWithImpl<$Res>
 
 /// Create a copy of Candle
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? open = null,Object? high = null,Object? low = null,Object? close = null,Object? time = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? open = null,Object? high = null,Object? low = null,Object? close = null,Object? time = null,Object? volume = null,}) {
   return _then(_Candle(
 open: null == open ? _self.open : open // ignore: cast_nullable_to_non_nullable
 as double,high: null == high ? _self.high : high // ignore: cast_nullable_to_non_nullable
 as double,low: null == low ? _self.low : low // ignore: cast_nullable_to_non_nullable
 as double,close: null == close ? _self.close : close // ignore: cast_nullable_to_non_nullable
 as double,time: null == time ? _self.time : time // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,volume: null == volume ? _self.volume : volume // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

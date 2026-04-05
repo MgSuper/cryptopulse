@@ -1,0 +1,1 @@
+enum MarketTab { all, watchlist }

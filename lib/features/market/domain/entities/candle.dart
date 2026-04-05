@@ -11,6 +11,7 @@ sealed class Candle with _$Candle {
     required double low,
     required double close,
     required DateTime time,
+    required double volume,
   }) = _Candle;
 
   factory Candle.fromJson(Map<String, dynamic> json) => _$CandleFromJson(json);

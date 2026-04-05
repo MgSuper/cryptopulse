@@ -10,6 +10,11 @@ abstract class ExchangeSocket {
   /// [symbols] are the trading pairs (e.g., ['BTCUSDT', 'ETHUSDT']).
   Stream<Map<String, dynamic>> connect({required List<String> symbols});
 
+  Stream<Map<String, dynamic>> connectKline({
+    required String symbol,
+    String interval = "1m",
+  });
+
   /// Closes the connection and releases all resources (Sinks, Controllers).
   ///
   /// Always call this when the Bloc/Provider is disposed to prevent memory leaks.

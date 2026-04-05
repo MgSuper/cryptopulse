@@ -15,6 +15,7 @@ class ChartRepositoryImpl implements ChartRepository {
     required String interval,
   }) async {
     final data = await api.getKlines(symbol: symbol, interval: interval);
+    print('chart data: $data');
 
     return data.map<Candle>((k) {
       return Candle(
@@ -23,6 +24,7 @@ class ChartRepositoryImpl implements ChartRepository {
         high: double.parse(k[2]),
         low: double.parse(k[3]),
         close: double.parse(k[4]),
+        volume: double.parse(k[5]),
       );
     }).toList();
   }

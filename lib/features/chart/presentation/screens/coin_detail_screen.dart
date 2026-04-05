@@ -3,6 +3,7 @@ import 'package:cryptopulse/features/chart/presentation/bloc/chart_bloc.dart';
 import 'package:cryptopulse/features/chart/presentation/bloc/chart_event.dart';
 import 'package:cryptopulse/features/chart/presentation/bloc/chart_state.dart';
 import 'package:cryptopulse/features/chart/presentation/screens/widgets/chart_info.dart';
+import 'package:cryptopulse/features/chart/presentation/screens/widgets/chart_stats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,6 +45,12 @@ class CoinDetailScreen extends StatelessWidget {
                     child: ChartInfo(candles: state.candles),
                   ),
                 ),
+                const SizedBox(height: 20),
+
+                /// STATS PANEL
+                ChartStats(candle: state.candles.last),
+
+                const SizedBox(height: 24),
               ],
             );
           },

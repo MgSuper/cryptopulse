@@ -13,3 +13,12 @@ class LoadChart extends ChartEvent {
   @override
   List<Object?> get props => [symbol];
 }
+
+class KlineUpdate extends ChartEvent {
+  final Map<String, dynamic> data;
+
+  const KlineUpdate(this.data);
+
+  @override
+  List<Object?> get props => [data];
+}

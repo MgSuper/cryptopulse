@@ -55,7 +55,19 @@ class MarketBloc extends Bloc<MarketEvent, MarketState> {
       );
     }
 
-    emit(state.copyWith(tickers: updated));
+    final history = Map<String, List<double>>.from(state.priceHistory);
+
+    final list = history[event.symbol] ?? [];
+
+    list.add(event.price);
+
+    if (list.length > 30) {
+      list.removeAt(0);
+    }
+
+    history[event.symbol] = list;
+
+    emit(state.copyWith(tickers: updated, priceHistory: history));
   }
 
   void _onDisconnected(MarketDisconnected event, Emitter<MarketState> emit) {

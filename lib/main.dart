@@ -3,18 +3,15 @@ import 'package:cryptopulse/features/market/presentation/screens/market_screen.d
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'core/network/binance_socket_service.dart';
-import 'features/market/data/repositories/market_repository_impl.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'features/market/presentation/bloc/market_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox<String>('watchlist');
   await configureDependencies();
   // debugRepaintRainbowEnabled = true;
-  // final socket = BinanceSocketService();
-  // final repository = MarketRepositoryImpl(socket);
-
   runApp(MyApp());
 }
 
