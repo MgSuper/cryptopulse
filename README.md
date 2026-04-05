@@ -18,7 +18,7 @@ updates efficiently.
 
 ## Market Dashboard
 
-(screenshots/all.png)
+![Market Dashboard](screenshots/all.png)
 
 Displays:
 
@@ -31,7 +31,7 @@ Displays:
 
 ## Add to Watchlist
 
-(screenshots/add_watchlist.png)
+![Add Watchlist](screenshots/add_watchlist.png)
 
 Displays:
 
@@ -43,7 +43,7 @@ Displays:
 
 ## Watchlist
 
-(screenshots/watchlist.png)
+![Watchlist](screenshots/watchlist.png)
 
 Displays:
 
@@ -55,7 +55,7 @@ Displays:
 
 ## Coin Detail Chart
 
-(screenshots/coin_detail.png)
+![Coin Detail](screenshots/coin_detail.png)
 
 Includes:
 
