@@ -42,7 +42,7 @@ class BinanceSocketService implements ExchangeSocket {
   @override
   Stream<Map<String, dynamic>> connectKline({
     required String symbol,
-    String interval = "1m",
+    String interval = '1m',
   }) {
     _cleanup();
 

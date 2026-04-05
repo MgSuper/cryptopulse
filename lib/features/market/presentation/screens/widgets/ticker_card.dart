@@ -74,7 +74,7 @@ class _TickerCardState extends State<TickerCard> {
             duration: const Duration(milliseconds: 300),
             builder: (context, value, child) {
               return Text(
-                "\$${value.toStringAsFixed(2)}",
+                '\$${value.toStringAsFixed(2)}',
                 style: TextStyle(
                   color: priceColor,
                   fontSize: 28,

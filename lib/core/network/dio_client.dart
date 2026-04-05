@@ -6,7 +6,7 @@ class DioClient {
   DioClient()
     : dio = Dio(
         BaseOptions(
-          baseUrl: "https://api.binance.com",
+          baseUrl: 'https://api.binance.com',
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
         ),

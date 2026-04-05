@@ -12,7 +12,7 @@ abstract class ExchangeSocket {
 
   Stream<Map<String, dynamic>> connectKline({
     required String symbol,
-    String interval = "1m",
+    String interval = '1m',
   });
 
   /// Closes the connection and releases all resources (Sinks, Controllers).
