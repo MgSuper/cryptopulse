@@ -48,36 +48,35 @@ class MarketRow extends StatelessWidget {
             );
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 12),
             child: Row(
               children: [
-                /// STAR
-                Expanded(
-                  flex: 1,
-                  child: IconButton(
-                    icon: Icon(
-                      isFavorite ? Icons.star : Icons.star_border,
-                      color: isFavorite ? Colors.amber : Colors.grey,
-                    ),
-                    onPressed: () {
-                      final bloc = context.read<WatchlistBloc>();
-
-                      if (isFavorite) {
-                        bloc.add(RemoveCoin(ticker.symbol));
-                      } else {
-                        bloc.add(AddCoin(ticker.symbol));
-                      }
-                    },
-                  ),
-                ),
-
                 /// ICON
                 Expanded(
-                  flex: 2,
-                  child: Icon(
-                    ticker.symbol.toCryptoIcon,
-                    color: CryptoUiHelper.getCoinColor(ticker.symbol),
-                    size: 28,
+                  flex: 3,
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          isFavorite ? Icons.star : Icons.star_border,
+                          color: isFavorite ? Colors.amber : Colors.grey,
+                        ),
+                        onPressed: () {
+                          final bloc = context.read<WatchlistBloc>();
+
+                          if (isFavorite) {
+                            bloc.add(RemoveCoin(ticker.symbol));
+                          } else {
+                            bloc.add(AddCoin(ticker.symbol));
+                          }
+                        },
+                      ),
+                      Icon(
+                        ticker.symbol.toCryptoIcon,
+                        color: CryptoUiHelper.getCoinColor(ticker.symbol),
+                        size: 28,
+                      ),
+                    ],
                   ),
                 ),
 
@@ -106,7 +105,7 @@ class MarketRow extends StatelessWidget {
 
                 /// 24H %
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,

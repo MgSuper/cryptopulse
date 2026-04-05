@@ -11,7 +11,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox<String>('watchlist');
   await configureDependencies();
-  debugRepaintRainbowEnabled = true;
+  // debugRepaintRainbowEnabled = true;
   runApp(MyApp());
 }
 

@@ -18,7 +18,12 @@ class CoinDetailScreen extends StatelessWidget {
       create: (_) => getIt<ChartBloc>()..add(LoadChart(symbol)),
       child: Scaffold(
         backgroundColor: const Color(0xFF0B0F14),
-        appBar: AppBar(title: Text(symbol)),
+        appBar: AppBar(
+          title: Text(symbol, style: TextStyle(color: Colors.white)),
+          centerTitle: false,
+          backgroundColor: Colors.transparent,
+          iconTheme: const IconThemeData(color: Colors.white),
+        ),
         body: BlocBuilder<ChartBloc, ChartState>(
           builder: (context, state) {
             if (state.loading) {
@@ -27,17 +32,6 @@ class CoinDetailScreen extends StatelessWidget {
 
             return Column(
               children: [
-                const SizedBox(height: 20),
-
-                Text(
-                  symbol,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
                 const SizedBox(height: 16),
                 Expanded(
                   child: Padding(

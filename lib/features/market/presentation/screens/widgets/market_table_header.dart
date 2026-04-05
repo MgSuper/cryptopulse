@@ -10,11 +10,7 @@ class MarketTableHeader extends StatelessWidget {
       child: Row(
         children: const [
           Expanded(
-            flex: 1,
-            child: Text("", style: TextStyle(color: Colors.grey)),
-          ),
-          Expanded(
-            flex: 2,
+            flex: 3,
             child: Text("Icon", style: TextStyle(color: Colors.grey)),
           ),
           Expanded(
@@ -26,7 +22,7 @@ class MarketTableHeader extends StatelessWidget {
             child: Text("Last Price", style: TextStyle(color: Colors.grey)),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Text("24h %", style: TextStyle(color: Colors.grey)),
           ),
           SizedBox(width: 8),

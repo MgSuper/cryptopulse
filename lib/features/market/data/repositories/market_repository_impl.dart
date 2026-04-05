@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'package:cryptopulse/core/network/exchange_socket.dart';
 import 'package:cryptopulse/features/market/domain/entities/ticker.dart';
 import 'package:cryptopulse/features/market/domain/repositories/market_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: MarketRepository)
@@ -13,12 +14,25 @@ class MarketRepositoryImpl implements MarketRepository {
 
   @override
   Stream<Ticker> subscribeTickers(List<String> symbols) async* {
+    if (kIsWeb) {
+      /// WEB VERSION (no isolate)
+      final socketStream = socket.connect(symbols: symbols);
+
+      await for (final data in socketStream) {
+        yield Ticker(
+          symbol: data['s'],
+          price: double.parse(data['c']),
+          changePercent: double.parse(data['P']),
+          timestamp: DateTime.now(),
+        );
+      }
+
+      return;
+    }
     final receivePort = ReceivePort();
     final portStream = receivePort.asBroadcastStream();
 
     await Isolate.spawn(_tickerIsolateEntry, receivePort.sendPort);
-
-    // handshake
     final isolateSendPort = await portStream.first as SendPort;
 
     // start websocket
