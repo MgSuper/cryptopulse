@@ -1,0 +1,86 @@
+name: CI + Deploy Flutter Web (GitHub Pages)
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: Flutter CI (Analyze & Test)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Analyze project
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test
+
+  build_web:
+    name: Build Flutter Web
+    needs: ci
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build Flutter Web
+        run: flutter build web --release --base-href "/cryptopulse/"
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build_web
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+    steps:
+      - name: Deploy
+        uses: actions/deploy-pages@v4
