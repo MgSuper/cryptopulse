@@ -28,41 +28,41 @@ void main() {
       build: () {
         when(
           () => repository.getWatchlist(),
-        ).thenReturn(["BTCUSDT", "ETHUSDT"]);
+        ).thenReturn(['BTCUSDT', 'ETHUSDT']);
 
         return bloc;
       },
       act: (bloc) => bloc.add(LoadWatchlist()),
       expect: () => [
-        const WatchlistState(coins: ["BTCUSDT", "ETHUSDT"]),
+        const WatchlistState(coins: ['BTCUSDT', 'ETHUSDT']),
       ],
     );
 
     blocTest<WatchlistBloc, WatchlistState>(
       'adds coin to watchlist',
       build: () {
-        when(() => repository.addCoin("BTCUSDT")).thenAnswer((_) async {});
+        when(() => repository.addCoin('BTCUSDT')).thenAnswer((_) async {});
 
-        when(() => repository.getWatchlist()).thenReturn(["BTCUSDT"]);
+        when(() => repository.getWatchlist()).thenReturn(['BTCUSDT']);
 
         return bloc;
       },
-      act: (bloc) => bloc.add(const AddCoin("BTCUSDT")),
+      act: (bloc) => bloc.add(const AddCoin('BTCUSDT')),
       expect: () => [
-        const WatchlistState(coins: ["BTCUSDT"]),
+        const WatchlistState(coins: ['BTCUSDT']),
       ],
     );
 
     blocTest<WatchlistBloc, WatchlistState>(
       'removes coin from watchlist',
       build: () {
-        when(() => repository.removeCoin("BTCUSDT")).thenAnswer((_) async {});
+        when(() => repository.removeCoin('BTCUSDT')).thenAnswer((_) async {});
 
         when(() => repository.getWatchlist()).thenReturn([]);
 
         return bloc;
       },
-      act: (bloc) => bloc.add(const RemoveCoin("BTCUSDT")),
+      act: (bloc) => bloc.add(const RemoveCoin('BTCUSDT')),
       expect: () => [const WatchlistState(coins: [])],
     );
 
@@ -73,13 +73,13 @@ void main() {
 
         when(
           () => repository.getWatchlist(),
-        ).thenReturn(["ETHUSDT", "BTCUSDT"]);
+        ).thenReturn(['ETHUSDT', 'BTCUSDT']);
 
         return bloc;
       },
       act: (bloc) => bloc.add(const Reorder(0, 1)),
       expect: () => [
-        const WatchlistState(coins: ["ETHUSDT", "BTCUSDT"]),
+        const WatchlistState(coins: ['ETHUSDT', 'BTCUSDT']),
       ],
     );
   });

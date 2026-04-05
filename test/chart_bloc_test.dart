@@ -60,7 +60,7 @@ void main() {
 
         return bloc;
       },
-      act: (bloc) => bloc.add(const LoadChart("BTCUSDT")),
+      act: (bloc) => bloc.add(const LoadChart('BTCUSDT')),
       expect: () => [isA<ChartState>(), isA<ChartState>()],
     );
   });

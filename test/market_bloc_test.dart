@@ -30,7 +30,7 @@ void main() {
         when(() => repository.subscribeTickers(any())).thenAnswer(
           (_) => Stream.value(
             Ticker(
-              symbol: "BTCUSDT",
+              symbol: 'BTCUSDT',
               price: 50000,
               changePercent: 1.5,
               timestamp: DateTime.now(),
@@ -40,11 +40,11 @@ void main() {
 
         return bloc;
       },
-      act: (bloc) => bloc.add(const SubscribeMarket(["BTCUSDT"])),
+      act: (bloc) => bloc.add(const SubscribeMarket(['BTCUSDT'])),
       expect: () => [
         isA<MarketState>().having((s) => s.connected, 'connected', true),
         isA<MarketState>().having(
-          (s) => s.tickers.containsKey("BTCUSDT"),
+          (s) => s.tickers.containsKey('BTCUSDT'),
           'ticker exists',
           true,
         ),
@@ -56,7 +56,7 @@ void main() {
       build: () => bloc,
       act: (bloc) => bloc.add(
         const TickerUpdated(
-          symbol: "BTCUSDT",
+          symbol: 'BTCUSDT',
           price: 50000,
           changePercent: 2.0,
         ),
